@@ -39,11 +39,17 @@ public class Product{
         this.name = name;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPrice(int price) throws ElemCount {
+        if (price >= 0)
+            this.price = price;
+        else
+            throw new ElemCount("Цена не может быть отрицательной!");
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setStock(int stock) throws ElemCount {
+        if (stock >= 0)
+            this.stock = stock;
+        else
+            throw new ElemCount("Количество товара не может быть отрицательным!");
     }
 }
