@@ -10,6 +10,8 @@ class ShoppingCartTest {
     private Product[] data;
     private ShoppingCart cart;
     @BeforeEach
+    
+    //устанавливаем значения до работы тестов, чтобы лишний раз не создавать объект класса ShopCart и не объявлять массив исходных данных
     public void setup() throws ElemCount{
         data = new Product[]{
                 new Product("123", "Iphone 16", 60000, 200),
@@ -38,12 +40,20 @@ class ShoppingCartTest {
         
         assertEquals("Количество добавляемых товаров больше, чем есть на складе.", exception.getMessage());
 
+        //добавляем неправильное число единиц товара
         exception = assertThrows(ElemCount.class, () -> {
             cart.add("125", 0, data);
         });
 
-        assertEquals("Нельзя добавить 0 единиц товара", exception.getMessage());
+        assertEquals("Неправильное число единиц товара", exception.getMessage());
 
+        exception = assertThrows(ElemCount.class, () -> {
+            cart.add("125", -100, data);
+        });
+
+        assertEquals("Неправильное число единиц товара", exception.getMessage());
+
+        //добавляем несуществующий товар
         ExcProduct excep = assertThrows(ExcProduct.class, () -> {
             cart.add("127", 200, data);
         });
@@ -64,12 +74,14 @@ class ShoppingCartTest {
         assertEquals(150, data[0].getStock());
         assertEquals(800, data[3].getStock());
 
+        //уменьшаем неправильное количество товара в корзине
         ElemCount exception = assertThrows(ElemCount.class, () -> {
             cart.lessСount("123", 100, data);
         });
-
+        
         assertEquals("В корзине нет такого количества товара.", exception.getMessage());
 
+        //уменьшаем количество отсутствующего товара в корзине
         ExcProduct excep = assertThrows(ExcProduct.class, () -> {
             cart.lessСount("127", 100, data);
         });
@@ -93,6 +105,7 @@ class ShoppingCartTest {
         assertEquals(200, data[0].getStock());
         assertEquals(1000, data[3].getStock());
         
+        //удаляем несуществующий товар из корзины
         ExcProduct exception = assertThrows(ExcProduct.class, () -> {
             cart.delProduct("123", data);
         });
@@ -104,6 +117,7 @@ class ShoppingCartTest {
     @org.junit.jupiter.api.Test
     void allCost() throws Exception {
         
+        //случай с пустой корзиной, ловим исключение 
         ExcProduct exception = assertThrows(ExcProduct.class, ()->{
             cart.allCost(data);
         });
@@ -123,6 +137,7 @@ class ShoppingCartTest {
 
     @org.junit.jupiter.api.Test
     void promoDis() throws Exception {
+        //неверное название промокода ловим исключение
         PromoError exception = assertThrows(PromoError.class, ()->{
             cart.promoDis("DISCOUNT14");
         });

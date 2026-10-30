@@ -14,6 +14,7 @@ public class Product{
         setStock(stock);
     }
 
+    //геттеры
     
     public String getId() {
         return id;
@@ -39,6 +40,9 @@ public class Product{
         this.name = name;
     }
 
+    
+    //Внесенные изменения, чтобы корректно устанавливалось значение stock и price,
+    //нам необходимо добавить проверку в сеттеры на неотрицательность
     public void setPrice(double price) throws ElemCount {
         if (price >= 0)
             this.price = price;

@@ -1,5 +1,10 @@
 package org.example;
 
+
+
+
+//класс enum для добавления скидки к итоговой стоимости
+
 public enum PromoCode {
     DISCOUNT10(0.10),
     DISCOUNT20(0.20),
