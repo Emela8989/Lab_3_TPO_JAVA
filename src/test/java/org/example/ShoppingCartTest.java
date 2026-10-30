@@ -10,7 +10,7 @@ class ShoppingCartTest {
     private Product[] data;
     private ShoppingCart cart;
     @BeforeEach
-    public void setup(){
+    public void setup() throws ElemCount{
         data = new Product[]{
                 new Product("123", "Iphone 16", 60000, 200),
                 new Product("124", "Sumsung Galaxy S8", 55000, 300),

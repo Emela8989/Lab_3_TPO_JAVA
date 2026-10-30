@@ -13,8 +13,8 @@ public class ShoppingCart{
     
     //добавление товара в корзину
     public Map<String, Integer> add(String id, int stock, Product[] data) throws ExcProduct, ElemCount {
-        if (stock == 0)
-            throw new ElemCount("Нельзя добавить 0 единиц товара");
+        if (stock <= 0)
+            throw new ElemCount("Неправильное число единиц товара");
         for (Product y : data) {
             if (y.getId().equals(id)) {
                 if (y.getStock() >= stock) {
@@ -36,7 +36,7 @@ public class ShoppingCart{
     // уменьшение количества товара в корзине
     public Map<String, Integer> lessСount(String id, int stock, Product[] data) throws ElemCount, ExcProduct{
         if (this.array.containsKey(id)){
-            if (this.array.get(id) >= stock)
+            if (this.array.get(id) >= stock && stock > 0)
             {
                 //уменьшение количества товара в корзине
                 this.array.compute(id, (k, currentStock) -> currentStock - stock);
@@ -62,7 +62,7 @@ public class ShoppingCart{
     }
 
     //Удаление товара из корзины
-    public Map<String, Integer>  delProduct(String id, Product[] data) throws ExcProduct {
+    public Map<String, Integer>  delProduct(String id, Product[] data) throws ExcProduct, ElemCount {
         if (this.array.containsKey(id)){
             for (Product x : data){
                 if (x.getId().equals(id)){

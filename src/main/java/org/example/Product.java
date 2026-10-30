@@ -7,11 +7,11 @@ public class Product{
     private double price;
     private int stock;
 
-    Product(String id, String name, double price, int stock){
+    Product(String id, String name, double price, int stock) throws ElemCount {
         this.id = id;
         this.name = name;
-        this.price = price;
-        this.stock = stock;
+        setPrice(price);
+        setStock(stock);
     }
 
     
@@ -39,7 +39,7 @@ public class Product{
         this.name = name;
     }
 
-    public void setPrice(int price) throws ElemCount {
+    public void setPrice(double price) throws ElemCount {
         if (price >= 0)
             this.price = price;
         else
